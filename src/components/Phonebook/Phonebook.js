@@ -19,20 +19,20 @@ export default class Phonebook extends Component {
   };
 
   formSubmitHandler = ({ name, number }) => {
+    const { contacts } = this.state;
     const newContact = { id: nanoid(), name, number };
 
-    for (let i = 0; i < this.state.contacts.length; i++) {
-      const normalizedName = this.state.contacts[i].name.toLowerCase();
-
-      if (newContact.name.toLowerCase() !== normalizedName) {
-        this.setState(({ contacts }) => ({
-          contacts: [newContact, ...contacts],
-        }));
-        return;
-      } else {
-        alert(`${newContact.name} is already in contacts`);
-        return;
-      }
+    if (
+      !contacts.find(
+        (contact) =>
+          contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
+      this.setState(({ contacts }) => ({
+        contacts: [newContact, ...contacts],
+      }));
+    } else {
+      alert(`${newContact.name} is already in contacts`);
     }
   };
 
@@ -61,7 +61,6 @@ export default class Phonebook extends Component {
   render() {
     const { filter } = this.state;
     const filtredNames = this.getFiltredNames();
-    console.log(this.state.contacts.length);
 
     return (
       <div>
@@ -84,3 +83,9 @@ export default class Phonebook extends Component {
     );
   }
 }
+
+// if (this.state.contacts.length === 0) {
+//   this.setState({ contacts: [newContact] });
+
+//   return;
+// } else
