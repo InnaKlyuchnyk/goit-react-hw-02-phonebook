@@ -1,8 +1,10 @@
+import PropTypes from "prop-types";
 import PhoneBookListItem from "../PhoneBookListItem/PhoneBookListItem";
+import { ContactList } from "./PhoneBookList.styled";
 
 export default function PhoneBookList({ filtredNames, onDeleteContact }) {
   return (
-    <ul>
+    <ContactList>
       {filtredNames.map(({ name, id, number }) => (
         <PhoneBookListItem
           key={id}
@@ -12,6 +14,11 @@ export default function PhoneBookList({ filtredNames, onDeleteContact }) {
           onClick={onDeleteContact}
         />
       ))}
-    </ul>
+    </ContactList>
   );
 }
+
+PhoneBookList.propTypes = {
+  filtredNames: PropTypes.array,
+  onDeleteContact: PropTypes.func,
+};

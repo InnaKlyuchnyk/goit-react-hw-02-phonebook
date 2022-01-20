@@ -5,6 +5,8 @@ import Filter from "./Filter/Filter";
 import Form from "./Form/Form";
 import PhoneBookList from "./PhoneBookList/PhoneBookList";
 
+import { GlobalStyle } from "../constans/GlobalStyle";
+
 export default class Phonebook extends Component {
   state = {
     contacts: [
@@ -59,19 +61,25 @@ export default class Phonebook extends Component {
   render() {
     const { filter } = this.state;
     const filtredNames = this.getFiltredNames();
+    console.log(this.state.contacts.length);
 
     return (
       <div>
         <Section title="Phonebook">
           <Form onSubmit={this.formSubmitHandler} />
         </Section>
-        <Section title="Contacts">
-          <Filter value={filter} onChange={this.handleFilterChange} />
-          <PhoneBookList
-            filtredNames={filtredNames}
-            onDeleteContact={this.deleteContact}
-          />
-        </Section>
+
+        {this.state.contacts.length !== 0 && (
+          <Section title="Contacts">
+            <Filter value={filter} onChange={this.handleFilterChange} />
+            <PhoneBookList
+              filtredNames={filtredNames}
+              onDeleteContact={this.deleteContact}
+            />
+          </Section>
+        )}
+
+        <GlobalStyle />
       </div>
     );
   }

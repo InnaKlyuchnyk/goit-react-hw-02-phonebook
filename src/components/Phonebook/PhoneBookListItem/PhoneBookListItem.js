@@ -1,10 +1,20 @@
+import PropTypes from "prop-types";
+import { Contact, DeleteButton } from "./PhoneBookListItem.styled";
+
 export default function PhoneBookListItem({ id, name, number, onClick }) {
   return (
-    <li>
+    <Contact>
       {name}: {number}
-      <button type="button" id={id} onClick={onClick}>
+      <DeleteButton type="button" id={id} onClick={onClick}>
         Delete
-      </button>
-    </li>
+      </DeleteButton>
+    </Contact>
   );
 }
+
+PhoneBookListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
